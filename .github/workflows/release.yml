@@ -26,11 +26,15 @@ jobs:
       # Установка OneScript конкретной версии
       - name: Установка OneScript
         uses: otymko/setup-onescript@v1.0
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
         with:
           version: ${{ matrix.oscript_version }}
 
       # Установка зависимостей пакета
       - name: Установка зависимостей
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
         run: |
           opm install opm
           opm install
@@ -55,3 +59,4 @@ jobs:
         run: opm push -f ./${{ matrix.package_mask }} --token ${{ env.TOKEN }} -c stable
         env:
           TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
